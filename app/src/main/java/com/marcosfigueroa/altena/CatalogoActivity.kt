@@ -33,7 +33,7 @@ class CatalogoActivity : AppCompatActivity() {
         viewModelCatalogo.getCatalogos()
         viewModelCatalogo.myResponse.observe(this, Observer { response ->
             if (response.isSuccessful) {
-
+                println(response.body()?.arrayDatos)
             }
         })
 
