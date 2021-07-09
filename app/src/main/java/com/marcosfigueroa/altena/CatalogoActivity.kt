@@ -17,7 +17,6 @@ import com.marcosfigueroa.altena.viewmodels.ViewModelCatalogo
 class CatalogoActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCatalogoBinding
-    private lateinit var viewModelCatalogo: ViewModelCatalogo
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

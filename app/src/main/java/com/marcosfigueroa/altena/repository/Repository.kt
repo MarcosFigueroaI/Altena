@@ -2,11 +2,9 @@ package com.marcosfigueroa.altena.repository
 
 import com.marcosfigueroa.altena.models.Catalogo
 import com.marcosfigueroa.altena.models.Data
-import com.marcosfigueroa.altena.service.ObjetoRetrofit
 import com.marcosfigueroa.altena.service.service
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import retrofit2.Response
 
 class Repository {
 
