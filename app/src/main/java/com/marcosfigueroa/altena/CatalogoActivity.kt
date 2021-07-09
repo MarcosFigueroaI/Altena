@@ -4,8 +4,11 @@ import android.R
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.marcosfigueroa.altena.adapters.CatalogoAdapter
 import com.marcosfigueroa.altena.databinding.ActivityCatalogoBinding
 import com.marcosfigueroa.altena.models.Catalogo
 import com.marcosfigueroa.altena.repository.Repository
@@ -16,26 +19,26 @@ class CatalogoActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCatalogoBinding
     private lateinit var viewModelCatalogo: ViewModelCatalogo
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCatalogoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-    }
+        binding.recyclerCatalogo.layoutManager = LinearLayoutManager(this)
+        val viewModelCatalogo = ViewModelProvider(this).get(ViewModelCatalogo::class.java)
 
-    override fun onStart() {
-        super.onStart()
+        val adapter = CatalogoAdapter()
+        binding.recyclerCatalogo.adapter = adapter
 
-        val repository = Repository()
-        val viewModelFactory = MainViewModelFactory(repository)
-        viewModelCatalogo = ViewModelProvider(this, viewModelFactory).get(ViewModelCatalogo::class.java)
-        viewModelCatalogo.getCatalogos()
-        viewModelCatalogo.myResponse.observe(this, Observer { response ->
-            if (response.isSuccessful) {
-                println(response.body()?.arrayDatos)
-            }
+        viewModelCatalogo.catalogoList.observe(this, Observer { catalogoList ->
+            adapter.submitList(catalogoList)
         })
 
+        adapter.onItemClickListener = {
+            Toast.makeText(this, it.nombre_producto, Toast.LENGTH_SHORT).show()
+        }
+
     }
+
+
 }
